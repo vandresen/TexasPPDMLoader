@@ -27,7 +27,6 @@ namespace TexasPPDMLoader.Data
             string sql = "IF NOT EXISTS(SELECT 1 FROM WELL WHERE UWI = @UWI) " +
                 "INSERT INTO WELL (UWI, SURFACE_LONGITUDE, SURFACE_LATITUDE, BOTTOM_HOLE_LATITUDE, BOTTOM_HOLE_LONGITUDE) " +
                 "VALUES(@UWI, @SURFACE_LONGITUDE, @SURFACE_LATITUDE, @BOTTOM_HOLE_LATITUDE, @BOTTOM_HOLE_LONGITUDE)";
-            //string sql = $@"insert into well (UWI) values (@UWI)";
             await _da.SaveData(connectionString, wellbores,sql);
         }
     }

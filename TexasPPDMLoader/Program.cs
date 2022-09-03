@@ -1,14 +1,18 @@
 ﻿using TexasPPDMLoader;
 using TexasPPDMLoader.Models;
 
-string path = @"C:\Users\vidar\Downloads\well001";
-string countyCode = "001";
+Console.Write("Enter path: ");
+string path = Console.ReadLine();
+Console.Write("Enter county code (3 characters): ");
+string countyCode = Console.ReadLine();
+Console.Write("Enter sql server connection string (If blank then output to csv): ");
+string connectionString = Console.ReadLine();
 
 InputData input = new InputData()
 {
     Path = path,
     CountyCode = countyCode,
-    ConnectionString = "Data Source=VIDARSURFACEPRO;Persist Security Info=False;Initial Catalog =PPDM_TEST3;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True;Connection Timeout=120"
+    ConnectionString = connectionString
 };
 
 try
