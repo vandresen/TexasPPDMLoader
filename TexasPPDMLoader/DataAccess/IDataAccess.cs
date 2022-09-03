@@ -8,7 +8,7 @@ namespace TexasPPDMLoader.DataAccess
 {
     public interface IDataAccess
     {
-        Task SaveData<T>(string connectionString, T data);
+        Task SaveData<T>(string connectionString, T data, string sql);
         Task<IEnumerable<T>> ReadData<T>(string connectionString);
     }
 }

@@ -8,7 +8,7 @@ InputData input = new InputData()
 {
     Path = path,
     CountyCode = countyCode,
-    ConnectionString = ""
+    ConnectionString = "Data Source=VIDARSURFACEPRO;Persist Security Info=False;Initial Catalog =PPDM_TEST3;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True;Connection Timeout=120"
 };
 
 try

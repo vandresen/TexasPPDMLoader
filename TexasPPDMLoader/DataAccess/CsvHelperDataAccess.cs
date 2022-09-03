@@ -16,7 +16,7 @@ namespace TexasPPDMLoader.DataAccess
             throw new NotImplementedException();
         }
 
-        public async Task SaveData<T>(string connectionString, T data)
+        public async Task SaveData<T>(string connectionString, T data, string sql)
         {
             using (var writer = new StreamWriter(connectionString))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

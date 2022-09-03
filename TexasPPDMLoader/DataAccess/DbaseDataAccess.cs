@@ -17,7 +17,7 @@ namespace TexasPPDMLoader.DataAccess
             throw new NotImplementedException();
         }
 
-        public Task SaveData<T>(string connectionString, T data)
+        public Task SaveData<T>(string connectionString, T data, string sql)
         {
             throw new NotImplementedException();
         }
