@@ -23,7 +23,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore 
         
       - name: Publish
-        run: dotnet publish -c Release
+        run: dotnet publish -c Release --self-contained true
         
       - name: View content
         run: dir
