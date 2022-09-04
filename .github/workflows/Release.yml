@@ -2,6 +2,10 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      versionNumber:
+        description: 'Version number'   
+        required: true
 
 jobs:
   build:
@@ -33,3 +37,17 @@ jobs:
         with:
           name: TexasPPDMLoader
           path: D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net6.0\win-x64\publish\TexasPPDMLoader.exe
+
+      - name: Create release
+        id: create-new-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.versionNumber }}
+          release_name: Release V${{ github.event.inputs.versionNumber }}
+          
+      - name: Download site content TexasPPDMLoader
+        uses: actions/download-artifact@v2
+        with:
+          name: TexasPPDMLoader
