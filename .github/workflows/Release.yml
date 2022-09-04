@@ -23,4 +23,4 @@ jobs:
         run: dotnet build --configuration Release --no-restore 
         
       - name: Publish
-        run: dotnet publish -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+        run: dotnet publish
