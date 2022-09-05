@@ -1,4 +1,5 @@
-﻿using TexasPPDMLoader;
+﻿using Microsoft.Data.SqlClient;
+using TexasPPDMLoader;
 using TexasPPDMLoader.Models;
 
 Console.Write("Enter path: ");
@@ -17,6 +18,12 @@ InputData input = new InputData()
 
 try
 {
+    SqlConnection sqlCn = new SqlConnection(connectionString);
+    Console.WriteLine("Connection");
+    sqlCn.Open();
+    Console.WriteLine("Open");
+    sqlCn.Close();
+
     TexasWellData twd = new TexasWellData();
     List<Wellbore> wells = await twd.GetTexasWells(input);
 
