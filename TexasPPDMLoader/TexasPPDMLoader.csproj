@@ -4,7 +4,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-	<PublishSingleFile>true</PublishSingleFile>
 	<SelfContained>true</SelfContained>
     <ImplicitUsings>enable</ImplicitUsings>
 	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
@@ -21,6 +20,10 @@
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="DbfDataReader" Version="0.8.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PPDMLoaderLibrary\PPDMLoaderLibrary.csproj" />
   </ItemGroup>
 
 </Project>

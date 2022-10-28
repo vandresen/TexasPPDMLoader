@@ -1,19 +1,15 @@
 ﻿using DbfDataReader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using PPDMLoaderLibrary.Models;
 using System.Text;
-using System.Threading.Tasks;
 using TexasPPDMLoader.DataAccess;
-using TexasPPDMLoader.Models;
 
 namespace TexasPPDMLoader.Data
 {
-    public class WellboreDataDbase : IWellboreData
+    public class WellboreDataLocationsDbase : IWellboreData
     {
         private readonly IDataAccess _da;
 
-        public WellboreDataDbase(IDataAccess da)
+        public WellboreDataLocationsDbase(IDataAccess da)
         {
             _da = da;
         }

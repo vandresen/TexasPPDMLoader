@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasPPDMLoader", "TexasPPDMLoader\TexasPPDMLoader.csproj", "{37CACD97-22C7-4C2A-988A-C14FA2CA7AFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasPPDMLoader", "TexasPPDMLoader\TexasPPDMLoader.csproj", "{37CACD97-22C7-4C2A-988A-C14FA2CA7AFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPDMLoaderLibrary", "PPDMLoaderLibrary\PPDMLoaderLibrary.csproj", "{FDE38926-78F6-4608-98D8-46A1ECA1E48F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{37CACD97-22C7-4C2A-988A-C14FA2CA7AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37CACD97-22C7-4C2A-988A-C14FA2CA7AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37CACD97-22C7-4C2A-988A-C14FA2CA7AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDE38926-78F6-4608-98D8-46A1ECA1E48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDE38926-78F6-4608-98D8-46A1ECA1E48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDE38926-78F6-4608-98D8-46A1ECA1E48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDE38926-78F6-4608-98D8-46A1ECA1E48F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
