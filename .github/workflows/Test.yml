@@ -24,3 +24,9 @@ jobs:
         
       - name: Publish
         run: dotnet publish ./TexasPPDMLoader/TexasPPDMLoader.csproj -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true
+        
+      - name: Upload TexasPPDMLoader Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: TexasPPDMLoader
+          path: D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net6.0\win-x64\publish\TexasPPDMLoader.exe
