@@ -23,4 +23,4 @@ jobs:
         run: dotnet build --configuration Release --no-restore 
         
       - name: Publish
-        run: dotnet publish -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true
+        run: dotnet publish ./TexasPPDMLoader/TexasPPDMLoader.csproj -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true
