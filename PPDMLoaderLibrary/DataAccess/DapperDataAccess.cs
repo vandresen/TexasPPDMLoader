@@ -7,10 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TexasPPDMLoader.DataAccess
+namespace PPDMLoaderLibrary.DataAccess
 {
-    internal class DapperDataAccess : IDataAccess
+    public class DapperDataAccess : IDataAccess
     {
+        public DapperDataAccess()
+        {
+
+        }
+
         public Task<IEnumerable<T>> ReadData<T>(string connectionString)
         {
             throw new NotImplementedException();

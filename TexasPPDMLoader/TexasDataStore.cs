@@ -1,6 +1,6 @@
-﻿using PPDMLoaderLibrary.Models;
+﻿using PPDMLoaderLibrary.DataAccess;
+using PPDMLoaderLibrary.Models;
 using TexasPPDMLoader.Data;
-using TexasPPDMLoader.DataAccess;
 
 namespace TexasPPDMLoader
 {

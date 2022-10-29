@@ -1,6 +1,6 @@
-﻿using PPDMLoaderLibrary.Extensions;
+﻿using PPDMLoaderLibrary.DataAccess;
+using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
-using TexasPPDMLoader.DataAccess;
 
 namespace TexasPPDMLoader.Data
 {
@@ -25,9 +25,9 @@ namespace TexasPPDMLoader.Data
             await SaveWellboreRefData(wellbores, connectionString);
             string sql = "IF NOT EXISTS(SELECT 1 FROM WELL WHERE UWI = @UWI) " +
                 "INSERT INTO WELL (UWI, SURFACE_LONGITUDE, SURFACE_LATITUDE, BOTTOM_HOLE_LATITUDE, BOTTOM_HOLE_LONGITUDE, " +
-                "FINAL_TD, OPERATOR, ASSIGNED_FIELD, LEASE_NAME) " +
+                "FINAL_TD, OPERATOR, ASSIGNED_FIELD, LEASE_NAME, WELL_NUM, COMPLETION_DATE) " +
                 "VALUES(@UWI, @SURFACE_LONGITUDE, @SURFACE_LATITUDE, @BOTTOM_HOLE_LATITUDE, @BOTTOM_HOLE_LONGITUDE, " +
-                "@FINAL_TD, @OPERATOR, @ASSIGNED_FIELD, @LEASE_NAME)";
+                "@FINAL_TD, @OPERATOR, @ASSIGNED_FIELD, @LEASE_NAME, @WELL_NUM, @COMPLETION_DATE)";
             await _da.SaveData(connectionString, wellbores,sql);
         }
 

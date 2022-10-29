@@ -16,6 +16,8 @@ namespace PPDMLoaderLibrary.Models
         public string LEASE_NAME { get; set; }
         public string OPERATOR { get; set; }
         public string ASSIGNED_FIELD { get; set; }
+        public string WELL_NUM { get; set; }
         public double? FINAL_TD { get; set; }
+        public DateTime? COMPLETION_DATE { get; set; }
     }
 }

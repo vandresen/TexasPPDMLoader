@@ -1,6 +1,7 @@
 ﻿using PPDMLoaderLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,21 @@ namespace PPDMLoaderLibrary.Extensions
                 if (double.TryParse(token, out value)) number = value;
             }
             return number;
+        }
+
+        public static DateTime? GetDateFromString(this string token)
+        {
+            CultureInfo provider = new CultureInfo("en-US");
+            DateTime? dateTime = null;
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                DateTime value;
+                if (DateTime.TryParseExact(token, "yyyyMMdd", provider, DateTimeStyles.None, out value))
+                {
+                    dateTime = value;
+                } 
+            }
+            return dateTime;
         }
 
         public static List<ReferenceData> CreateReferenceDataObject(this List<string> refValues)

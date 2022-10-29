@@ -23,7 +23,7 @@ namespace PPDMLoaderLibrary.Models
         public string PERMIT_NUM { get; set; }
         public string GAS_RRCID { get; set; }
         public string FIELD_NAME { get; set; }
-        public string COMPLETION_DATE { get; set; }
+        public DateTime? COMPLETION_DATE { get; set; }
         public string PLUG_DATE { get; set; }
         public string REFER_TO_API { get; set; }
         public string ON_OFF_SCHEDULE { get; set; }

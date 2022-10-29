@@ -1,8 +1,8 @@
 ﻿using DbfDataReader;
+using PPDMLoaderLibrary.DataAccess;
 using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
 using System.Text;
-using TexasPPDMLoader.DataAccess;
 
 namespace TexasPPDMLoader.Data
 {
@@ -35,6 +35,8 @@ namespace TexasPPDMLoader.Data
                         OPERATOR = well.OPERATOR,
                         ASSIGNED_FIELD = well.FIELD_NAME,
                         FINAL_TD = well.TOTAL_DEPTH,
+                        WELL_NUM = well.WELL_NUMBER,
+                        COMPLETION_DATE = well.COMPLETION_DATE,
                     };
                     wellbores.Add(wellbore);
                 }
@@ -69,6 +71,7 @@ namespace TexasPPDMLoader.Data
                     string apiNum = (string)dbfRecord.GetValue(1);
                     string block = (string)dbfRecord.GetValue(2);
                     string completion = (string)dbfRecord.GetValue(3);
+                    DateTime? completionDate = completion.GetDateFromString();
                     string fieldName = (string)dbfRecord.GetValue(4);
                     string leaseName = (string)dbfRecord.GetValue(5);
                     string gasRrcid = (string)dbfRecord.GetValue(6);
@@ -89,7 +92,7 @@ namespace TexasPPDMLoader.Data
                         ABSTRACT = abstractName,
                         API_NUM = apiNum,
                         BLOCK = block,
-                        COMPLETION_DATE = completion,
+                        COMPLETION_DATE = completionDate,
                         FIELD_NAME = fieldName,
                         LEASE_NAME = leaseName,
                         GAS_RRCID = gasRrcid,
@@ -103,6 +106,7 @@ namespace TexasPPDMLoader.Data
                         TOTAL_DEPTH = totalDept,
                         WELL_NUMBER = wellid,
                         QUAD_NUM = quadNum,
+                        
                     };
                     headers.Add(head);
                 }

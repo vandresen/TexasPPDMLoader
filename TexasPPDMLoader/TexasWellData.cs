@@ -1,6 +1,6 @@
-﻿using PPDMLoaderLibrary.Models;
+﻿using PPDMLoaderLibrary.DataAccess;
+using PPDMLoaderLibrary.Models;
 using TexasPPDMLoader.Data;
-using TexasPPDMLoader.DataAccess;
 
 namespace TexasPPDMLoader
 {
@@ -44,6 +44,8 @@ namespace TexasPPDMLoader
                     well.FINAL_TD = info[0].FINAL_TD;
                     well.LEASE_NAME = info[0].LEASE_NAME;
                     well.ASSIGNED_FIELD = info[0].ASSIGNED_FIELD;
+                    well.COMPLETION_DATE = info[0].COMPLETION_DATE;
+                    well.WELL_NUM = info[0].WELL_NUM;
                 }
             }
             Console.WriteLine($"Number of duplicate matches {dups}");
