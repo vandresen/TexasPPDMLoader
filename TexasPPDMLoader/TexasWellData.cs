@@ -20,7 +20,7 @@ namespace TexasPPDMLoader
         public async Task<List<Wellbore>> GetTexasWells(InputData input)
         {
             List<Wellbore> wellbores = new List<Wellbore>();
-            string connectionString = input.Path + @"\well" + input.CountyCode;
+            string connectionString = input.Path + @"\extract\well" + input.CountyCode;
             wellbores = await _wbl.ReadWellbores(connectionString);
 
             List<Wellbore> wellinfo = new List<Wellbore>();

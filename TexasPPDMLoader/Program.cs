@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using PPDMLoaderLibrary;
 using PPDMLoaderLibrary.Models;
 using TexasPPDMLoader;
 
@@ -18,6 +19,9 @@ InputData input = new InputData()
 
 try
 {
+    DownloadDataFromWeb dl = new DownloadDataFromWeb(path);
+    dl.DownloadWells(countyCode);
+    dl.DownloadApiData(countyCode);
     if (!string.IsNullOrEmpty(connectionString))
     {
         SqlConnection sqlCn = new SqlConnection(connectionString);
