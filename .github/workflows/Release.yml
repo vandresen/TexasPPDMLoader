@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
           
       - name: Install dependencies
         run: dotnet restore
@@ -30,13 +30,13 @@ jobs:
         run: dotnet publish ./TexasPPDMLoader/TexasPPDMLoader.csproj -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true
         
       - name: View content
-        run: dir D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net6.0\win-x64\publish\
+        run: dir D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net7.0\win-x64\publish\
         
       - name: Upload TexasPPDMLoader Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: TexasPPDMLoader
-          path: D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net6.0\win-x64\publish\TexasPPDMLoader.exe
+          path: D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net7.0\win-x64\publish\TexasPPDMLoader.exe
 
       - name: Create release
         id: create-new-release
