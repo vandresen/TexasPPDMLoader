@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager;
 
 namespace PPDMLoaderLibrary
 {
@@ -53,6 +55,8 @@ namespace PPDMLoaderLibrary
             {
                 File.Delete(filePath);
             }
+
+            new DriverManager().SetUpDriver(new ChromeConfig());
 
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.AddUserProfilePreference("download.default_directory", _path);
