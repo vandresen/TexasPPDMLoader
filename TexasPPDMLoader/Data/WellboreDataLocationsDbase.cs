@@ -33,17 +33,66 @@ namespace TexasPPDMLoader.Data
             foreach (var well in bottomWells)
             {
                 var surf = surfaceData.Where(w => w.SurfaceId == well.SurfaceId).ToList();
-                int uwiLength = well.ApiNumber.Length;
-                if (uwiLength == 10)
+                double surfLat = 0;
+                double surfLon = 0;
+                if (surf.Count == 0)
                 {
+                    surfLat = well.Lat27;
+                    surfLon = well.Long27;
+                }
+                else
+                {
+                    surfLat = surf[0].Lat27;
+                    surfLon = surf[0].Lon27;
+                }
+                int uwiLength = well.Api.Length;
+                if(!String.IsNullOrEmpty(well.Sidetrack))
+                {
+                    //Console.WriteLine($"Sidetrack is {well.Sidetrack} and well number is {well.WellNumber}");
+                }
+                Wellbore wellbore = new Wellbore()
+                {
+                    SURFACE_LATITUDE = surfLat,
+                    SURFACE_LONGITUDE = surfLon,
+                    BOTTOM_HOLE_LATITUDE = well.Lat27,
+                    BOTTOM_HOLE_LONGITUDE = well.Long27,
+                    WELL_NUM = well.WellNumber
+                };
+                if (uwiLength == 8)
+                {
+                    wellbore.UWI = "42" + well.Api + "00";
+                }
+                else
+                {
+                    wellbore.UWI = "U42" + well.Api + "-" + well.BottomId.ToString();
+                }
+                wellbores.Add(wellbore);
+            }
+
+            foreach (var well in surfaceData)
+            {
+                var bott = bottomWells.Where(w => w.SurfaceId == well.SurfaceId).ToList();
+                if(bott.Count == 0) 
+                {
+                    //Console.WriteLine($"No bottom for {well.SurfaceId}");
+                    double surfLat = well.Lat27;
+                    double surfLon = well.Lon27;
                     Wellbore wellbore = new Wellbore()
                     {
-                        UWI = well.ApiNumber + "00",
-                        SURFACE_LATITUDE = surf[0].Lat27,
-                        SURFACE_LONGITUDE = surf[0].Lon27,
+                        SURFACE_LATITUDE = surfLat,
+                        SURFACE_LONGITUDE = surfLon,
                         BOTTOM_HOLE_LATITUDE = well.Lat27,
-                        BOTTOM_HOLE_LONGITUDE = well.Long27
+                        BOTTOM_HOLE_LONGITUDE = well.Lon27
                     };
+                    int uwiLength = well.Api.Length;
+                    if (uwiLength == 8)
+                    {
+                        wellbore.UWI = "42" + well.Api + "00";
+                    }
+                    else
+                    {
+                        wellbore.UWI = "U" + well.Api + "-" + well.SurfaceId.ToString();
+                    }
                     wellbores.Add(wellbore);
                 }
             }
@@ -162,13 +211,13 @@ namespace TexasPPDMLoader.Data
 
         private List<SurfaceBottomLines> getLineData(string file)
         {
+            List<SurfaceBottomLines> lines = new List<SurfaceBottomLines>();
             if (!File.Exists(file))
             {
-                Exception error = new Exception($"The surface bottom file does not exists.");
-                throw error;
+                return lines;
             }
             var skipDeleted = true;
-            List<SurfaceBottomLines> lines = new List<SurfaceBottomLines>();
+            
             using (var dbfTable = new DbfTable(file, Encoding.UTF8))
             {
                 var dbfRecord = new DbfRecord(dbfTable);
@@ -195,6 +244,11 @@ namespace TexasPPDMLoader.Data
                 }
             }
             return lines;
+        }
+
+        public Task<List<WellHeaderData>> ReadWellInfo(string connectionString)
+        {
+            throw new NotImplementedException();
         }
     }
 }

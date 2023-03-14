@@ -21,11 +21,17 @@ namespace TexasPPDMLoader.Data
 
             string file = connectionString + ".dbf";
             List<WellHeaderData> wellHeaders = getHeaderData(file);
-            Console.WriteLine($"Number of well info lines found is {wellHeaders.Count}");
+            Console.WriteLine($"Number of well info found is {wellHeaders.Count}");
+            int refWells = 0;
 
             foreach (var well in wellHeaders)
             {
                 int uwiLength = well.API_NUM.Length;
+                //if(well.REFER_TO_API != "00000000")
+                //{
+                //    refWells++;
+                //    //Console.WriteLine($"{well.API_NUM} is refered to {well.REFER_TO_API}");
+                //}
                 if (uwiLength == 8)
                 {
                     Wellbore wellbore = new Wellbore()
@@ -40,8 +46,20 @@ namespace TexasPPDMLoader.Data
                     };
                     wellbores.Add(wellbore);
                 }
+                else
+                {
+                    Console.WriteLine($"Bad api number {well.API_NUM}");
+                }
             }
+            Console.WriteLine($"Number of reference wells that has been ignored: {refWells}");
             return wellbores;
+        }
+
+        public async Task<List<WellHeaderData>> ReadWellInfo(string connectionString)
+        {
+            string file = connectionString + ".dbf";
+            List<WellHeaderData> wellHeaders = getHeaderData(file);
+            return wellHeaders;
         }
 
         public Task SaveWellbores(List<Wellbore> wellbores, string connectionString)

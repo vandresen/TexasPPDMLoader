@@ -3,8 +3,9 @@ using PPDMLoaderLibrary;
 using PPDMLoaderLibrary.Models;
 using TexasPPDMLoader;
 
-Console.Write("Enter path: ");
+Console.Write(@"Enter path (Default = C:\temp): ");
 string path = Console.ReadLine();
+if (string.IsNullOrEmpty(path)) path = @"C:\temp";
 Console.Write("Enter county code (3 characters): ");
 string countyCode = Console.ReadLine();
 Console.Write("Enter sql server connection string (If blank then output to csv): ");

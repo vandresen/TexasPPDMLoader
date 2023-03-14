@@ -53,5 +53,10 @@ namespace TexasPPDMLoader.Data
 
             
         }
+
+        public Task<List<WellHeaderData>> ReadWellInfo(string connectionString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace TexasPPDMLoader.Data
             throw new NotImplementedException();
         }
 
+        public Task<List<WellHeaderData>> ReadWellInfo(string connectionString)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveWellbores(List<Wellbore> wellbores, string connectionString)
         {
             await _da.SaveData<List<Wellbore>>(connectionString, wellbores, "");
