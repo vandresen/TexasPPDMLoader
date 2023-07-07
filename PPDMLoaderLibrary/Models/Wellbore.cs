@@ -18,6 +18,8 @@ namespace PPDMLoaderLibrary.Models
         public string ASSIGNED_FIELD { get; set; }
         public string WELL_NUM { get; set; }
         public double? FINAL_TD { get; set; }
+        public double? DEPTH_DATUM_ELEV { get; set; }
+        public string DEPTH_DATUM { get; set; }
         public DateTime? COMPLETION_DATE { get; set; }
     }
 }

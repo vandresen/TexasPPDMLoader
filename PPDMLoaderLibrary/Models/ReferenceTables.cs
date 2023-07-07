@@ -17,6 +17,8 @@ namespace PPDMLoaderLibrary.Models
                 { KeyAttribute = "BUSINESS_ASSOCIATE_ID", Table = "BUSINESS_ASSOCIATE", ValueAttribute= "BA_LONG_NAME"},
                 new ReferenceTable()
                 { KeyAttribute = "FIELD_ID", Table = "FIELD", ValueAttribute= "FIELD_NAME"},
+                new ReferenceTable()
+                { KeyAttribute = "WELL_DATUM_TYPE", Table = "R_WELL_DATUM_TYPE", ValueAttribute= "LONG_NAME"},
             };
         }
     }

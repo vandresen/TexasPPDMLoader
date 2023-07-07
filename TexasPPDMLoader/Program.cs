@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using PPDMLoaderLibrary;
+using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
 using TexasPPDMLoader;
 
@@ -23,6 +24,7 @@ try
     DownloadDataFromWeb dl = new DownloadDataFromWeb(path);
     dl.DownloadWells(countyCode);
     dl.DownloadApiData(countyCode);
+    dl.DownloadFullWellboreData();
     if (!string.IsNullOrEmpty(connectionString))
     {
         SqlConnection sqlCn = new SqlConnection(connectionString);
@@ -34,6 +36,11 @@ try
     
     TexasWellData twd = new TexasWellData();
     List<Wellbore> wells = await twd.GetTexasWells(input);
+
+    TexasFullWellboreData tpd = new TexasFullWellboreData();
+    List<Wellbore> fullWelbores = tpd.GetTexasFullWellboreData(input);
+
+    wells = wells.MergeWellboreObjects(fullWelbores);
 
     TexasDataStore tds = new TexasDataStore();
     await tds.Savewells(input, wells);
