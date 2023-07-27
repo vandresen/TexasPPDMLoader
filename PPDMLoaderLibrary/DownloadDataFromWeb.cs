@@ -15,10 +15,10 @@ namespace PPDMLoaderLibrary
     public class DownloadDataFromWeb
     {
         private readonly string _path;
-        private readonly string wellBoreUrl = @"https://mft.rrc.texas.gov/link/4e9023eb-e4ee-45b8-81b7-aec1494c1e8e";
-        private readonly string wellApiUrl = @"https://mft.rrc.texas.gov/link/7ed6883a-875d-4e24-a7e5-1614d5968389";
+        private readonly string wellBoreUrl = @"https://mft.rrc.texas.gov/link/d551fb20-442e-4b67-84fa-ac3f23ecabb4";
+        private readonly string wellApiUrl = @"https://mft.rrc.texas.gov/link/1eb94d66-461d-4114-93f7-b4bc04a70674";
         private readonly string wellPermitUrl = @"https://mft.rrc.texas.gov/link/91a36fea-4dad-4f26-96c3-30843d0e0315";
-        private readonly string fullWellboreUrl = @"https://mft.rrc.texas.gov/link/9ef1955f-cf26-4bd4-8030-1253eb772cf9";
+        private readonly string fullWellboreUrl = @"https://mft.rrc.texas.gov/link/b070ce28-5c58-4fe2-9eb7-8b70befb7af9";
 
         public DownloadDataFromWeb(string path = "C:\temp")
         {
@@ -29,7 +29,19 @@ namespace PPDMLoaderLibrary
         {
             string url = wellBoreUrl;
             string file = "well" + countyCode + ".zip";
-            ChromeDownload(url, file);
+            string filePath = _path + "/" + file;
+            bool download = true;
+            if (File.Exists(filePath))
+            {
+                DateTime lastWriteTime = File.GetLastWriteTime(filePath);
+                DateTime currentDate = DateTime.Now;
+                if (currentDate < lastWriteTime.AddDays(14))
+                {
+                    Console.WriteLine("The wellbore file was last written less than 14 days ago.");
+                    download = false;
+                }
+            }
+            if (download) ChromeDownload(url, file);
 
             string zipPath = _path + @"\" + file;
             string extractPath = _path + @"\extract";
@@ -45,15 +57,38 @@ namespace PPDMLoaderLibrary
         {
             string url = wellApiUrl;
             string file = "api" + countyCode + ".dbf";
-            ChromeDownload(url, file);
+            string filePath = _path + "/" + file;
+            bool download = true;
+            if (File.Exists(filePath))
+            {
+                DateTime lastWriteTime = File.GetLastWriteTime(filePath);
+                DateTime currentDate = DateTime.Now;
+                if (currentDate < lastWriteTime.AddDays(14))
+                {
+                    Console.WriteLine("The wellbore API file was last written less than 14 days ago.");
+                    download = false;
+                }
+            }
+            if (download) ChromeDownload(url, file);
         }
 
         public void DownloadFullWellboreData()
         {
             string url = fullWellboreUrl;
             string file = "dbf900.txt.gz";
-            ChromeDownload(url, file);
-
+            string filePath = _path + "/" + file;
+            bool download = true;
+            if (File.Exists(filePath))
+            {
+                DateTime lastWriteTime = File.GetLastWriteTime(filePath);
+                DateTime currentDate = DateTime.Now;
+                if (currentDate < lastWriteTime.AddMonths(1))
+                {
+                    Console.WriteLine("The full wellbore file was last written less than 1 month ago.");
+                    download= false;
+                }
+            }
+            if (download) ChromeDownload(url, file);
             string extractedFilePath = Path.Combine(_path, Path.GetFileNameWithoutExtension(file));
             string extractPath = _path + @"\extract";
             string zipPath = _path + @"\" + file;

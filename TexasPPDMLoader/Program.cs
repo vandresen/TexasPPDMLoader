@@ -2,7 +2,6 @@
 using PPDMLoaderLibrary;
 using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
-using TexasPPDMLoader;
 
 Console.Write(@"Enter path (Default = C:\temp): ");
 string path = Console.ReadLine();

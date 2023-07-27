@@ -4,7 +4,7 @@ using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
 using System.Text;
 
-namespace TexasPPDMLoader.Data
+namespace PPDMLoaderLibrary.Data
 {
     public class WellboreDataInfoDbase : IWellboreData
     {

@@ -1,0 +1,88 @@
+2 Permitted Location
+3 Dry Hole
+4 Oil Well
+5 Gas Well
+6 Oil/Gas Well
+7 Plugged Oil Well
+8 Plugged Gas Well
+9 Canceled Location
+10 Plugged Oil/Gas Well
+11 Injection/Disposal Well
+12 Core Test
+16 Sulfur Core Test
+17 Storage from Oil
+18 Storage from Gas
+19 Shut-In Well (Oil)
+20 Shut-In Well (Gas)
+21 Injection/Disposal from Oil
+22 Injection/Disposal from Gas
+23 Injection/Disposal from Oil/Gas
+36 Geothermal Well
+73 Brine Mining Well
+74 Water Supply Well
+75 Water Supply from Oil
+76 Water Supply from Gas
+77 Water Supply from Oil/Gas
+78 Observation Well
+79 Observation from Oil
+80 Observation from Gas
+81 Observation from Oil/Gas
+86 Horizontal Well Surface Location
+87 Directional/Sidetrack Well Surface Location
+88 Storage Well
+89 Service Well
+90 Service from Oil
+91 Service from Gas
+92 Service from Oil/Gas
+103 Storage from Oil/Gas
+104 Injection/Disposal from Storage
+105 Injection/Disposal from Storage/Oil
+106 Injection/Disposal from Storage/Gas
+107 Injection/Disposal from Storage/Oil/Gas
+108 Observation from Storage
+109 Observation from Storage/Oil
+110 Observation from Storage/Gas
+111 Observation from Storage/Oil/Gas
+112 Service from Storage
+113 Service from Storage/Oil
+114 Service from Storage/Gas
+115 Service from Storage/Oil/Gas
+116 Plugged Storage
+117 Plugged Storage/Oil
+118 Plugged Storage/Gas
+119 Plugged Storage/Oil/Gas
+121 Brine Mining from Oil
+122 Brine Mining from Gas
+123 Brine Mining from Oil/Gas
+124 Injection/Disposal from Brine Mining
+125 Injection/Disposal from Brine Mining/Oil
+126 Injection/Disposal from Brine Mining/Gas
+127 Injection/Disposal from Brine Mining/Oil/Gas
+128 Observation from Brine Mining
+129 Observation from Brine Mining/Oil
+130 Observation from Brine Mining/Gas
+131 Observation from Brine Mining/Oil/Gas
+132 Service from Brine Mining
+133 Service from Brine Mining/Oil
+134 Service from Brine Mining/Gas
+135 Service from Brine Mining/Oil/Gas
+136 Plugged Brine Mining
+137 Plugged Brine Mining/Oil
+138 Plugged Brine Mining/Gas
+139 Plugged Brine Mining/Oil/Gas
+140 Storage/Brine Mining
+141 Storage/Brine Mining/Oil
+142 Storage/Brine Mining/Gas
+143 Storage/Brine Mining/Oil/Gas
+144 Inj./Disposal from Storage/Brine Mining
+145 Inj./Disposal from Storage/Brine Mining/Oil
+146 Inj./Disposal from Storage/Brine Mining/Gas
+147 Inj./Disposal from Storage/Brine Mining/Oil/Gas
+148 Observation from Storage/Brine Mining
+149 Observation from Storage/Brine Mining/Oil
+150 Observation from Storage/Brine Mining/Gas
+151 Observation from Storage/Brine Mining/Oil/Gas
+152 Plugged Storage/Brine Mining
+153 Plugged Storage/Brine Mining/Oil
+154 Plugged Storage/Brine Mining/Gas
+155 Plugged Storage/Brine Mining/Oil/Gas 

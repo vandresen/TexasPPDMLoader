@@ -1,8 +1,8 @@
-﻿using PPDMLoaderLibrary.DataAccess;
+﻿using PPDMLoaderLibrary.Data;
+using PPDMLoaderLibrary.DataAccess;
 using PPDMLoaderLibrary.Models;
-using TexasPPDMLoader.Data;
 
-namespace TexasPPDMLoader
+namespace PPDMLoaderLibrary
 {
     public class TexasDataStore
     {

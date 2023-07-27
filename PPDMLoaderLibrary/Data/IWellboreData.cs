@@ -1,6 +1,6 @@
 ﻿using PPDMLoaderLibrary.Models;
 
-namespace TexasPPDMLoader.Data
+namespace PPDMLoaderLibrary.Data
 {
     public interface IWellboreData
     {

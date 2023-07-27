@@ -1,7 +1,7 @@
 ﻿using PPDMLoaderLibrary.DataAccess;
 using PPDMLoaderLibrary.Models;
 
-namespace TexasPPDMLoader.Data
+namespace PPDMLoaderLibrary.Data
 {
     public class WellboreDataCsv: IWellboreData
     {

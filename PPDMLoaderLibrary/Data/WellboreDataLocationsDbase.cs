@@ -1,9 +1,10 @@
 ﻿using DbfDataReader;
 using PPDMLoaderLibrary.DataAccess;
+using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
 using System.Text;
 
-namespace TexasPPDMLoader.Data
+namespace PPDMLoaderLibrary.Data
 {
     public class WellboreDataLocationsDbase : IWellboreData
     {
@@ -16,6 +17,8 @@ namespace TexasPPDMLoader.Data
 
         public async Task<List<Wellbore>> ReadWellbores(string connectionString)
         {
+            Dictionary<int, string> plotSymbols = await ReadPlotSymbolsToDictionary("PlotSymbolDictionary.txt");
+            
             List<Wellbore> wellbores = new List<Wellbore>();
 
             string file = connectionString + "l.dbf";
@@ -56,7 +59,8 @@ namespace TexasPPDMLoader.Data
                     SURFACE_LONGITUDE = surfLon,
                     BOTTOM_HOLE_LATITUDE = well.Lat27,
                     BOTTOM_HOLE_LONGITUDE = well.Long27,
-                    WELL_NUM = well.WellNumber
+                    WELL_NUM = well.WellNumber,
+                    CURRENT_STATUS = plotSymbols[well.SymbolNumber]
                 };
                 if (uwiLength == 8)
                 {
@@ -82,7 +86,8 @@ namespace TexasPPDMLoader.Data
                         SURFACE_LATITUDE = surfLat,
                         SURFACE_LONGITUDE = surfLon,
                         BOTTOM_HOLE_LATITUDE = well.Lat27,
-                        BOTTOM_HOLE_LONGITUDE = well.Lon27
+                        BOTTOM_HOLE_LONGITUDE = well.Lon27,
+                        CURRENT_STATUS = plotSymbols[well.SymbolNumber]
                     };
                     int uwiLength = well.Api.Length;
                     if (uwiLength == 8)
@@ -250,5 +255,36 @@ namespace TexasPPDMLoader.Data
         {
             throw new NotImplementedException();
         }
+
+        private async Task<Dictionary<int,string>> ReadPlotSymbolsToDictionary(string filePath)
+        {
+            IFileStorageService fileStorage = new EmbeddedFileStorageService();
+            string plotSymbols = await fileStorage.ReadFile("", filePath);
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            try
+            {
+                string[] lines = plotSymbols.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.None);
+                foreach (string line in lines)
+                {
+                    int spaceIndex = line.IndexOf(' ');
+                    if (spaceIndex >= 0 && int.TryParse(line.Substring(0, spaceIndex), out int number))
+                    {
+                        string text = line.Substring(spaceIndex + 1);
+                        if (text.Length > 40)
+                        {
+                            text = text.Truncate(40);
+                        }
+                        dictionary[number] = text;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return dictionary;
+        }
+
     }
 }

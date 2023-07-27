@@ -12,13 +12,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PlotSymbolDictionary.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="PlotSymbolDictionary.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="vidar.user" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="30.0.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="DbfDataReader" Version="0.8.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
   </ItemGroup>
 
