@@ -22,6 +22,11 @@ namespace PPDMLoaderLibrary.Data
             throw new NotImplementedException();
         }
 
+        public async Task SaveFormations(List<Formations> formations, string connectionString)
+        {
+            await _da.SaveData<List<Formations>>(connectionString, formations, "");
+        }
+
         public async Task SaveWellbores(List<Wellbore> wellbores, string connectionString)
         {
             await _da.SaveData<List<Wellbore>>(connectionString, wellbores, "");

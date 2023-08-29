@@ -32,5 +32,24 @@ namespace PPDMLoaderLibrary
             
             await _wb.SaveWellbores(wells, connectionString);
         }
+
+        public async Task SaveFormations(InputData input, List<Formations> formations)
+        {
+            string connectionString = "";
+            if (string.IsNullOrEmpty(input.ConnectionString))
+            {
+                connectionString = input.Path + @"\" + input.CountyCode + @"_Formations.csv";
+                _da = new CsvHelperDataAccess();
+                _wb = new WellboreDataCsv(_da);
+            }
+            else
+            {
+                connectionString = input.ConnectionString;
+                _da = new DapperDataAccess();
+                _wb = new WellboreDataDapper(_da);
+            }
+
+            await _wb.SaveFormations(formations, connectionString);
+        }
     }
 }

@@ -16,6 +16,9 @@ namespace PPDMLoaderLibrary
             53, 55, 56, 57, 65, 73, 81, 87, 88, 89, 90, 91, 92, 100, 101, 102, 103, 105, 106, 108, 110, 112, 114,
             116, 118, 120, 122, 124, 126, 128, 130, 132, 133, 139, 146, 152, 158, 159, 160, 161, 168 };
         int[] locationPos = { 1, 3, 6, 12, 67, 77, 85, 89, 95, 101, 114, 120, 133, 143, 153, 158, 160, 170, 178, 179 };
+        private string uwi = "";
+        private Formations formation;
+        private HashSet<Formations> formations = new HashSet<Formations>();
 
         public TexasFullWellboreData()
         {
@@ -49,7 +52,7 @@ namespace PPDMLoaderLibrary
                     {
 
                         string recordKey = ln.Substring(0, 2);
-                        string uwi = "";
+                        //string uwi = "";
                         string completionDate = "";
                         string totalDepth = "";
 
@@ -116,6 +119,16 @@ namespace PPDMLoaderLibrary
                         else if (recordKey == "09")
                         {
                             //Console.WriteLine(ln);
+                            string formationName = ln.Substring(5, 32);
+                            string strDepth = ln.Substring(37, 5);
+                            if (strDepth != "00000")
+                            {
+                                Formations formation = new Formations();
+                                formation.PICK_DEPTH = strDepth.GetDoubleFromString();
+                                formation.UWI = uwi;
+                                formation.STRAT_UNIT_ID = formationName;
+                                formations.Add(formation);
+                            }
                         }
                         // WELL-SQUEEZE-DATA-SEG
                         else if (recordKey == "10")
@@ -199,6 +212,12 @@ namespace PPDMLoaderLibrary
             {
                 Console.WriteLine($"Full wellbore file {textFile} does not exist");
             }
+            return result;
+        }
+
+        public List<Formations> GetTexasFormationData(InputData input)
+        {
+            List<Formations> result = formations.Where(x => x.UWI.Substring(2, 3) == input.CountyCode).ToList();
             return result;
         }
     }

@@ -286,5 +286,9 @@ namespace PPDMLoaderLibrary.Data
             return dictionary;
         }
 
+        public Task SaveFormations(List<Formations> formations, string connectionString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

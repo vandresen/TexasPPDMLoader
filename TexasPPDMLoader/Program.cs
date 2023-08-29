@@ -38,11 +38,13 @@ try
 
     TexasFullWellboreData tpd = new TexasFullWellboreData();
     List<Wellbore> fullWelbores = tpd.GetTexasFullWellboreData(input);
+    List<Formations> formations = tpd.GetTexasFormationData(input);
 
     wells = wells.MergeWellboreObjects(fullWelbores);
 
     TexasDataStore tds = new TexasDataStore();
     await tds.Savewells(input, wells);
+    await tds.SaveFormations(input, formations);
 }
 catch (Exception ex)
 {

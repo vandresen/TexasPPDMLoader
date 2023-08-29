@@ -62,6 +62,11 @@ namespace PPDMLoaderLibrary.Data
             return wellHeaders;
         }
 
+        public Task SaveFormations(List<Formations> formations, string connectionString)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SaveWellbores(List<Wellbore> wellbores, string connectionString)
         {
             throw new NotImplementedException();

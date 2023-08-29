@@ -74,5 +74,32 @@ namespace PPDMLoaderLibrary.Data
         {
             throw new NotImplementedException();
         }
+
+        public async Task SaveFormations(List<Formations> formations, string connectionString)
+        {
+            await SaveFormationsRefData(formations, connectionString);
+            string sql = "IF NOT EXISTS" +
+                "(SELECT 1 FROM STRAT_WELL_SECTION WHERE UWI = @UWI AND STRAT_NAME_SET_ID = 'UNKNOWN' AND STRAT_UNIT_ID = @STRAT_UNIT_ID) " +
+                "INSERT INTO STRAT_WELL_SECTION (UWI, STRAT_NAME_SET_ID, STRAT_UNIT_ID, PICK_DEPTH, INTERP_ID) " +
+                "VALUES(@UWI, 'UNKNOWN', @STRAT_UNIT_ID, @PICK_DEPTH, 'UNKNOWN')";
+            await _da.SaveData(connectionString, formations, sql);
+        }
+
+        public async Task SaveFormationsRefData(List<Formations> wellbores, string connectionString)
+        {
+            List<ReferenceData> refs = wellbores.Select(x => x.STRAT_UNIT_ID).Distinct().ToList().CreateReferenceDataObject();
+
+            string sql = $"IF NOT EXISTS(SELECT 1 FROM STRAT_NAME_SET WHERE STRAT_NAME_SET_ID = 'UNKNOWN') " +
+                $"INSERT INTO STRAT_NAME_SET " +
+                $"(STRAT_NAME_SET_ID, STRAT_NAME_SET_NAME) " +
+                $"VALUES('UNKNOWN', 'UNKNOWN')";
+            await _da.SaveData(connectionString, new { }, sql);
+
+            sql = $"IF NOT EXISTS(SELECT 1 FROM STRAT_UNIT WHERE STRAT_UNIT_ID = @Reference) " +
+                $"INSERT INTO STRAT_UNIT " +
+                $"(STRAT_NAME_SET_ID, STRAT_UNIT_ID, LONG_NAME) " +
+                $"VALUES('UNKNOWN', @Reference, @Reference)";
+            await _da.SaveData(connectionString, refs, sql);
+        }
     }
 }
