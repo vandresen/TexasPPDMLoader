@@ -48,6 +48,28 @@ namespace PPDMLoaderLibrary.Extensions
             return number;
         }
 
+        public static decimal GetDecimalFromString(this string token)
+        {
+            decimal number = -99999.0m;
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                decimal value;
+                if (decimal.TryParse(token, out value)) number = value;
+            }
+            return number;
+        }
+
+        public static int GetIntlFromString(this string token)
+        {
+            int number = -99999;
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                int value;
+                if (int.TryParse(token, out value)) number = value;
+            }
+            return number;
+        }
+
         public static DateTime? GetDateFromString(this string token)
         {
             CultureInfo provider = new CultureInfo("en-US");

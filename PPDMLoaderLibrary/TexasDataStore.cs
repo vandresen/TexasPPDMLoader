@@ -51,5 +51,24 @@ namespace PPDMLoaderLibrary
 
             await _wb.SaveFormations(formations, connectionString);
         }
+
+        public async Task SavePerforations(InputData input, List<Perforation> perfs)
+        {
+            string connectionString = "";
+            if (string.IsNullOrEmpty(input.ConnectionString))
+            {
+                connectionString = input.Path + @"\" + input.CountyCode + @"_Perforations.csv";
+                _da = new CsvHelperDataAccess();
+                _wb = new WellboreDataCsv(_da);
+            }
+            else
+            {
+                connectionString = input.ConnectionString;
+                _da = new DapperDataAccess();
+                _wb = new WellboreDataDapper(_da);
+            }
+
+            await _wb.SavePerforations(perfs, connectionString);
+        }
     }
 }

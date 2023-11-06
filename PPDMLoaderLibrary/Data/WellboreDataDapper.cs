@@ -101,5 +101,14 @@ namespace PPDMLoaderLibrary.Data
                 $"VALUES('UNKNOWN', @Reference, @Reference)";
             await _da.SaveData(connectionString, refs, sql);
         }
+
+        public async Task SavePerforations(List<Perforation> perfs, string connectionString)
+        {
+            string sql = "IF NOT EXISTS" +
+                "(SELECT 1 FROM WELL_PERFORATION WHERE UWI = @UWI AND PERFORATION_OBS_NO = @PERFORATION_OBS_NO) " +
+                "INSERT INTO WELL_PERFORATION (UWI, SOURCE, PERFORATION_OBS_NO, BASE_DEPTH, TOP_DEPTH) " +
+                "VALUES(@UWI, 'UNKNOWN', @PERFORATION_OBS_NO, @BASE_DEPTH, @TOP_DEPTH)";
+            await _da.SaveData(connectionString, perfs, sql);
+        }
     }
 }

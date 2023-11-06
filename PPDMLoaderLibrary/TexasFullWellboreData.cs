@@ -19,6 +19,7 @@ namespace PPDMLoaderLibrary
         private string uwi = "";
         private Formations formation;
         private HashSet<Formations> formations = new HashSet<Formations>();
+        private List<Perforation> perfs = new List<Perforation>();
 
         public TexasFullWellboreData()
         {
@@ -33,6 +34,7 @@ namespace PPDMLoaderLibrary
             if (File.Exists(textFile))
             {
                 List<Wellbore> wellbores = new List<Wellbore>();
+                
                 using (StreamReader file = new StreamReader(textFile))
                 {
                     int counter = 0;
@@ -109,6 +111,26 @@ namespace PPDMLoaderLibrary
                         else if (recordKey == "07")
                         {
                             //Console.WriteLine(ln);
+                            string strObsNumber = ln.Substring(2, 3);
+                            string strBaseDepth = ln.Substring(5, 5);
+                            string strTopDepth = ln.Substring(10, 5);
+                            int obsNumber = strObsNumber.GetIntlFromString();
+                            decimal baseDepth = strBaseDepth.GetDecimalFromString();
+                            decimal topDepth = strTopDepth.GetDecimalFromString();
+                            bool badData = obsNumber == -99999 || baseDepth == -99999.0m || topDepth == -99999.0m;
+                            if (badData == false) 
+                            {
+                                bool save = uwi.Substring(2, 3) == input.CountyCode;
+                                if (save)
+                                {
+                                    Perforation perf = new Perforation();
+                                    perf.UWI = uwi;
+                                    perf.PERFORATION_OBS_NO = obsNumber;
+                                    perf.BASE_DEPTH = baseDepth;
+                                    perf.TOP_DEPTH = topDepth;
+                                    perfs.Add(perf);
+                                }
+                            }
                         }
                         // WELL-BORE-LINER-SEG.
                         else if (recordKey == "08")
@@ -219,6 +241,11 @@ namespace PPDMLoaderLibrary
         {
             List<Formations> result = formations.Where(x => x.UWI.Substring(2, 3) == input.CountyCode).ToList();
             return result;
+        }
+
+        public List<Perforation> GetTexasPerforationData(InputData input)
+        {
+            return perfs;
         }
     }
 }

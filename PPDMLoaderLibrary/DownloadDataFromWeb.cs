@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager;
 using System.IO.Compression;
+using OpenQA.Selenium.Interactions;
 
 namespace PPDMLoaderLibrary
 {
@@ -68,6 +69,10 @@ namespace PPDMLoaderLibrary
                     Console.WriteLine("The wellbore API file was last written less than 14 days ago.");
                     download = false;
                 }
+                else
+                {
+                    File.Delete(filePath);
+                }
             }
             if (download) ChromeDownload(url, file);
         }
@@ -86,6 +91,10 @@ namespace PPDMLoaderLibrary
                 {
                     Console.WriteLine("The full wellbore file was last written less than 1 month ago.");
                     download= false;
+                }
+                else
+                {
+                    File.Delete(filePath);
                 }
             }
             if (download) ChromeDownload(url, file);
@@ -114,6 +123,7 @@ namespace PPDMLoaderLibrary
             new DriverManager().SetUpDriver(new ChromeConfig());
 
             ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("--headless=new");
             chromeOptions.AddUserProfilePreference("download.default_directory", _path);
 
             driver = new ChromeDriver(chromeOptions);
@@ -131,7 +141,7 @@ namespace PPDMLoaderLibrary
             }
 
             driver.FindElement(By.LinkText(file)).Click();
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(450));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(600));
             wait.Until<bool>(x => fileExist = File.Exists(filePath));
             driver.Quit();
         }

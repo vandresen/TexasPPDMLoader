@@ -27,6 +27,11 @@ namespace PPDMLoaderLibrary.Data
             await _da.SaveData<List<Formations>>(connectionString, formations, "");
         }
 
+        public async Task SavePerforations(List<Perforation> perfs, string connectionString)
+        {
+            await _da.SaveData<List<Perforation>>(connectionString, perfs, "");
+        }
+
         public async Task SaveWellbores(List<Wellbore> wellbores, string connectionString)
         {
             await _da.SaveData<List<Wellbore>>(connectionString, wellbores, "");

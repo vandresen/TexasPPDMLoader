@@ -290,5 +290,10 @@ namespace PPDMLoaderLibrary.Data
         {
             throw new NotImplementedException();
         }
+
+        public Task SavePerforations(List<Perforation> formations, string connectionString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
