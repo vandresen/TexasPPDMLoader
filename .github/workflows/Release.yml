@@ -46,6 +46,7 @@ jobs:
         with:
           tag_name: v${{ github.event.inputs.versionNumber }}
           release_name: Release V${{ github.event.inputs.versionNumber }}
+          body_path: "./CHANGELOG.md"
           
       - name: Download site content TexasPPDMLoader
         uses: actions/download-artifact@v2
