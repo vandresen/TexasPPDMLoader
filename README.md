@@ -14,5 +14,10 @@ It is using software from Selenium to download data. Selenium is basically test 
 
 We are trying to get all wells in a county. Some wells may have bottom locations outside the county and not be available in the shapefiles. In this case we can only provide the surface location. For some wells we may not find a match in well header info shapefile so no location data will be available for these. There are also several wells we cannot get a proper well UWI. All these well UWIs will start with the letter U.
 
+Data types supported:
+* Well header
+* Formations
+* Perforations
+
 
 
