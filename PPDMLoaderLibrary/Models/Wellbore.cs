@@ -21,6 +21,7 @@ namespace PPDMLoaderLibrary.Models
         public double? FINAL_TD { get; set; }
         public double? DEPTH_DATUM_ELEV { get; set; }
         public string DEPTH_DATUM { get; set; }
+        public string REMARK { get; set; }
         public DateTime? COMPLETION_DATE { get; set; }
     }
 }

@@ -57,15 +57,46 @@ namespace PPDMLoaderLibrary
                         //string uwi = "";
                         string completionDate = "";
                         string totalDepth = "";
-
+                        string prevWellAPI = "";
+                        string dummyAPI = "";
+                        string referCorrectAPInbr = "";
+                        string errorApiAssignCode = "";
+                        string dateDummyReplaced = "";
                         // WELL-BORE-API-ROOT.
                         if (recordKey == "01")
                         {
-
                             string[] ret = ln.ParseString(rootWidths);
                             uwi = "42" + ret[1] + ret[2] + "00";
+
+                            //if (uwi == "420012019700")
+                            //{
+                            //    Console.WriteLine(ln);
+                            //}
+
                             completionDate = ret[8] + ret[9] + ret[10] + ret[11];
                             totalDepth = ret[12];
+                            prevWellAPI = ret[33];
+                            dummyAPI = ret[25];
+                            referCorrectAPInbr = ret[24];
+                            errorApiAssignCode = ret[23];
+                            if (prevWellAPI != null)
+                            {
+                                if(prevWellAPI != "00000000")
+                                {
+                                    wb.REMARK = "Previous API: " + prevWellAPI;
+                                }
+                            }
+                            if (dummyAPI != null)
+                            {
+                                if (dummyAPI != "00000000")
+                                {
+                                    wb.REMARK = wb.REMARK + " Dummy API: " + dummyAPI;
+                                }
+                            }
+                            if (referCorrectAPInbr != "00000000")
+                            {
+                                wb.REMARK = wb.REMARK + " Correct API: " + referCorrectAPInbr;
+                            }
                             if (wb.UWI != null)
                             {
                                 wellbores.Add(wb);
