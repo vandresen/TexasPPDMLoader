@@ -27,10 +27,13 @@ jobs:
         run: dotnet build --configuration Release --no-restore 
         
       - name: Publish
-        run: dotnet publish ./TexasPPDMLoader/TexasPPDMLoader.csproj -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true
+        run: dotnet publish ./TexasPPDMLoader/TexasPPDMLoader.csproj -c Release --self-contained true -r win-x64 -p:PublishSingleFile=true --output ./output
         
       - name: View content
         run: dir D:\a\TexasPPDMLoader\TexasPPDMLoader\TexasPPDMLoader\bin\Release\net7.0\win-x64\publish\
+
+      - name: View content2
+        run: dir ./output
         
       - name: Upload TexasPPDMLoader Build Artifact
         uses: actions/upload-artifact@v2
