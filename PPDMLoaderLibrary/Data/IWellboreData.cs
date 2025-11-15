@@ -7,6 +7,7 @@ namespace PPDMLoaderLibrary.Data
         Task SaveWellbores(List<Wellbore> wellbores, string connectionString);
         Task SaveFormations(List<Formations> formations, string connectionString);
         Task SavePerforations(List<Perforation> formations, string connectionString);
+        Task SaveCasings(List<Casing> casings, string connectionString);
         Task<List<Wellbore>> ReadWellbores(string connectionString);
         Task<List<WellHeaderData>> ReadWellInfo(string connectionString);
     }

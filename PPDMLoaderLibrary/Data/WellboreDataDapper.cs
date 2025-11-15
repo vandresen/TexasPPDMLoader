@@ -32,7 +32,7 @@ namespace PPDMLoaderLibrary.Data
                 "VALUES(@UWI, @SURFACE_LONGITUDE, @SURFACE_LATITUDE, @BOTTOM_HOLE_LATITUDE, @BOTTOM_HOLE_LONGITUDE, " +
                 "@FINAL_TD, @OPERATOR, @ASSIGNED_FIELD, @LEASE_NAME, @WELL_NUM, @COMPLETION_DATE, " +
                 "@DEPTH_DATUM_ELEV, @DEPTH_DATUM, @CURRENT_STATUS, @REMARK)";
-            await _da.SaveData(connectionString, wellbores,sql);
+            await _da.SaveData(connectionString, sql, wellbores);
         }
 
         public async Task SaveWellboreRefData(List<Wellbore> wellbores, string connectionString)
@@ -66,7 +66,7 @@ namespace PPDMLoaderLibrary.Data
                 $"({table.KeyAttribute}, {table.ValueAttribute}) " +
                 $"VALUES(@Reference, @Reference)";
                 }
-                await _da.SaveData(connectionString, refs, sql);
+                await _da.SaveData(connectionString, sql, refs);
             }
         }
 
@@ -82,7 +82,7 @@ namespace PPDMLoaderLibrary.Data
                 "(SELECT 1 FROM STRAT_WELL_SECTION WHERE UWI = @UWI AND STRAT_NAME_SET_ID = 'UNKNOWN' AND STRAT_UNIT_ID = @STRAT_UNIT_ID) " +
                 "INSERT INTO STRAT_WELL_SECTION (UWI, STRAT_NAME_SET_ID, STRAT_UNIT_ID, PICK_DEPTH, INTERP_ID) " +
                 "VALUES(@UWI, 'UNKNOWN', @STRAT_UNIT_ID, @PICK_DEPTH, 'UNKNOWN')";
-            await _da.SaveData(connectionString, formations, sql);
+            await _da.SaveData(connectionString, sql, formations);
         }
 
         public async Task SaveFormationsRefData(List<Formations> wellbores, string connectionString)
@@ -93,13 +93,13 @@ namespace PPDMLoaderLibrary.Data
                 $"INSERT INTO STRAT_NAME_SET " +
                 $"(STRAT_NAME_SET_ID, STRAT_NAME_SET_NAME) " +
                 $"VALUES('UNKNOWN', 'UNKNOWN')";
-            await _da.SaveData(connectionString, new { }, sql);
+            await _da.SaveData(connectionString, sql, new { });
 
             sql = $"IF NOT EXISTS(SELECT 1 FROM STRAT_UNIT WHERE STRAT_UNIT_ID = @Reference) " +
                 $"INSERT INTO STRAT_UNIT " +
                 $"(STRAT_NAME_SET_ID, STRAT_UNIT_ID, LONG_NAME) " +
                 $"VALUES('UNKNOWN', @Reference, @Reference)";
-            await _da.SaveData(connectionString, refs, sql);
+            await _da.SaveData(connectionString, sql, refs);
         }
 
         public async Task SavePerforations(List<Perforation> perfs, string connectionString)
@@ -108,7 +108,24 @@ namespace PPDMLoaderLibrary.Data
                 "(SELECT 1 FROM WELL_PERFORATION WHERE UWI = @UWI AND PERFORATION_OBS_NO = @PERFORATION_OBS_NO) " +
                 "INSERT INTO WELL_PERFORATION (UWI, SOURCE, PERFORATION_OBS_NO, BASE_DEPTH, TOP_DEPTH) " +
                 "VALUES(@UWI, 'UNKNOWN', @PERFORATION_OBS_NO, @BASE_DEPTH, @TOP_DEPTH)";
-            await _da.SaveData(connectionString, perfs, sql);
+            await _da.SaveData(connectionString, sql, perfs);
+        }
+
+        public async Task SaveCasings(List<Casing> casings, string connectionString)
+        {
+            string sql = "IF NOT EXISTS" +
+                "(SELECT 1 FROM R_TUBING_TYPE WHERE TUBING_TYPE = 'CASING') " +
+                "INSERT INTO r_tubing_type(TUBING_TYPE, REMARK) VALUES('CASING', 'Casing string')";
+            await _da.SaveData<object>(connectionString, sql);
+
+            sql = "IF NOT EXISTS" +
+                "(SELECT 1 FROM WELL_TUBULAR WHERE UWI = @UWI AND TUBING_OBS_NO = @TUBING_OBS_NO AND TUBING_TYPE = @TUBING_TYPE) " +
+                "INSERT INTO WELL_TUBULAR (UWI, SOURCE, TUBING_OBS_NO, TUBING_TYPE, OUTSIDE_DIAMETER, TUBING_WEIGHT, " +
+                "SHOE_DEPTH, HOLE_SIZE, LEFT_IN_HOLE_LENGTH, REMARK, ACTIVE_IND) " +
+                "VALUES(@UWI, @SOURCE, @TUBING_OBS_NO, @TUBING_TYPE, @OUTSIDE_DIAMETER, @TUBING_WEIGHT, " +
+                "@SHOE_DEPTH, @HOLE_SIZE, @LEFT_IN_HOLE_LENGTH, @REMARK, @ACTIVE_IND)";
+            await _da.SaveData(connectionString, sql, casings);
         }
     }
 }
+

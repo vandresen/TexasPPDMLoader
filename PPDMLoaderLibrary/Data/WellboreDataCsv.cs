@@ -22,19 +22,24 @@ namespace PPDMLoaderLibrary.Data
             throw new NotImplementedException();
         }
 
+        public async Task SaveCasings(List<Casing> casings, string connectionString)
+        {
+            await _da.SaveData<List<Casing>>(connectionString, "", casings);
+        }
+
         public async Task SaveFormations(List<Formations> formations, string connectionString)
         {
-            await _da.SaveData<List<Formations>>(connectionString, formations, "");
+            await _da.SaveData<List<Formations>>(connectionString, "", formations);
         }
 
         public async Task SavePerforations(List<Perforation> perfs, string connectionString)
         {
-            await _da.SaveData<List<Perforation>>(connectionString, perfs, "");
+            await _da.SaveData<List<Perforation>>(connectionString, "", perfs);
         }
 
         public async Task SaveWellbores(List<Wellbore> wellbores, string connectionString)
         {
-            await _da.SaveData<List<Wellbore>>(connectionString, wellbores, "");
+            await _da.SaveData<List<Wellbore>>(connectionString, "", wellbores);
         }
     }
 }

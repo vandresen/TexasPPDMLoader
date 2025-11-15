@@ -62,6 +62,11 @@ namespace PPDMLoaderLibrary.Data
             return wellHeaders;
         }
 
+        public Task SaveCasings(List<Casing> casings, string connectionString)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task SaveFormations(List<Formations> formations, string connectionString)
         {
             throw new NotImplementedException();

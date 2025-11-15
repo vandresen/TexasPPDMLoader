@@ -114,5 +114,32 @@ namespace PPDMLoaderLibrary.Extensions
         {
             return value?.Substring(0, Math.Min(value.Length, maxLength));
         }
+
+        public static int ParseInt(this string s, int start, int length)
+        {
+            var part = SafeSubstring(s, start - 1, length).Trim();
+            return int.TryParse(part, out var val) ? val : 0;
+        }
+
+        public static double ParseCasingDiameter(this string s, int inchStart, int inchLen, int fracNumStart, int fracNumLen, int fracDenStart, int fracDenLen)
+        {
+            var inch = ParseInt(s, inchStart, inchLen);
+            var num = ParseInt(s, fracNumStart, fracNumLen);
+            var den = ParseInt(s, fracDenStart, fracDenLen);
+            return inch + (den > 0 ? (double)num / den : 0.0);
+        }
+
+        public static double ParseCasingWeight(this string s, int wholeStart, int wholeLen, int tenthsStart, int tenthsLen)
+        {
+            var whole = ParseInt(s, wholeStart, wholeLen);
+            var tenths = ParseInt(s, tenthsStart, tenthsLen);
+            return whole + tenths / 10.0;
+        }
+
+        private static string SafeSubstring(string s, int start, int length)
+        {
+            if (start >= s.Length) return string.Empty;
+            return s.Substring(start, Math.Min(length, s.Length - start));
+        }
     }
 }

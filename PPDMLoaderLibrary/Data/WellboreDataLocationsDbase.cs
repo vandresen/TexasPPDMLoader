@@ -295,5 +295,10 @@ namespace PPDMLoaderLibrary.Data
         {
             throw new NotImplementedException();
         }
+
+        public Task SaveCasings(List<Casing> casings, string connectionString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

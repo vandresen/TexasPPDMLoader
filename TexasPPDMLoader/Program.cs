@@ -40,6 +40,7 @@ try
     List<Wellbore> fullWelbores = tpd.GetTexasFullWellboreData(input);
     List<Formations> formations = tpd.GetTexasFormationData(input);
     List<Perforation> perfs = tpd.GetTexasPerforationData(input);
+    List<Casing> casings = tpd.GetTexasCasingData(input);
 
     wells = wells.MergeWellboreObjects(fullWelbores);
 
@@ -47,6 +48,7 @@ try
     await tds.Savewells(input, wells);
     await tds.SaveFormations(input, formations);
     await tds.SavePerforations(input, perfs);
+    await tds.SaveCasings(input, casings);
 }
 catch (Exception ex)
 {

@@ -16,7 +16,7 @@ namespace PPDMLoaderLibrary.DataAccess
             throw new NotImplementedException();
         }
 
-        public async Task SaveData<T>(string connectionString, T data, string sql)
+        public async Task SaveData<T>(string connectionString, string sql, T data)
         {
             using (var writer = new StreamWriter(connectionString))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))

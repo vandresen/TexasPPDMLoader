@@ -8,7 +8,7 @@ namespace PPDMLoaderLibrary.DataAccess
 {
     public interface IDataAccess
     {
-        Task SaveData<T>(string connectionString, T data, string sql);
+        Task SaveData<T>(string connectionString, string sql, T? data = default);
         Task<IEnumerable<T>> ReadData<T>(string connectionString);
     }
 }

@@ -17,7 +17,7 @@ namespace PPDMLoaderLibrary.DataAccess
             throw new NotImplementedException();
         }
 
-        public Task SaveData<T>(string connectionString, T data, string sql)
+        public Task SaveData<T>(string connectionString, string sql, T data)
         {
             throw new NotImplementedException();
         }

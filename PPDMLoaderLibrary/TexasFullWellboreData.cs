@@ -1,10 +1,5 @@
 ﻿using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PPDMLoaderLibrary
 {
@@ -20,6 +15,7 @@ namespace PPDMLoaderLibrary
         private Formations formation;
         private HashSet<Formations> formations = new HashSet<Formations>();
         private List<Perforation> perfs = new List<Perforation>();
+        private List<Casing> casings = new List<Casing>();
 
         public TexasFullWellboreData()
         {
@@ -136,7 +132,22 @@ namespace PPDMLoaderLibrary
                         // WELL-BORE-CASING-SEG.
                         else if (recordKey == "06")
                         {
-                            //Console.WriteLine(ln);
+                            var casing = new Casing
+                            {
+                                UWI = uwi,
+                                TUBING_OBS_NO = ln.ParseInt(3, 3),
+                                OUTSIDE_DIAMETER = ln.ParseCasingDiameter(6, 2, 8, 2, 10, 2),
+                                TUBING_WEIGHT = ln.ParseCasingWeight(12, 3, 15, 1),
+                                SHOE_DEPTH = ln.ParseInt(20, 5),
+                                HOLE_SIZE =ln.ParseCasingDiameter(36, 2, 38, 2, 40, 2),
+                                LEFT_IN_HOLE_LENGTH = ln.ParseInt(49, 5),
+                                REMARK = $"Cement {ln.ParseInt(30, 5)} {ln[34]}"
+                            };
+                            if (casing.SHOE_DEPTH > 0)
+                            {
+                                bool save = uwi.Substring(2, 3) == input.CountyCode;
+                                if (save) casings.Add(casing);
+                            }
                         }
                         // WELL-BORE-PERF-SEG.
                         else if (recordKey == "07")
@@ -277,6 +288,11 @@ namespace PPDMLoaderLibrary
         public List<Perforation> GetTexasPerforationData(InputData input)
         {
             return perfs;
+        }
+
+        public List<Casing> GetTexasCasingData(InputData input)
+        {
+            return casings;
         }
     }
 }

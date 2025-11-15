@@ -21,10 +21,11 @@ namespace PPDMLoaderLibrary.DataAccess
             throw new NotImplementedException();
         }
 
-        public async Task SaveData<T>(string connectionString, T parameters, string sql)
+        public async Task SaveData<T>(string connectionString, string sql, T? parameters = default)
         {
             using IDbConnection cnn = new SqlConnection(connectionString);
-            await cnn.ExecuteAsync(sql, parameters);
+            object param = parameters is null ? new { } : parameters!;
+            await cnn.ExecuteAsync(sql, param);
         }
     }
 }
