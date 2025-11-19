@@ -8,7 +8,15 @@ This tool requires shapefile data from "Well layers by county" and "Statewide AP
 
 The release have a self contained executable that you can download. This does not have a certificate so you will get a warning when using it.
 
-It will require that you enter the path for where the files will be downloaded and the 3 digit county code. It also requires the connection string to your SQL server database. If you omit this then it will create a csv file in the path that you entered.
+Usage:
+  TexasPPDMLoader [options]
+
+Options:
+  --path <path>                 Directory to store downloaded files (Default = C:       emp)
+  --county <county> (REQUIRED)  3-character county code
+  --connection <connection>     Optional SQL Server connection string (Default = csv file)
+  -?, -h, --help                Show help and usage information
+  --version                     Show version information
 
 It is using software from Selenium to download data. Selenium is basically test software for web based user interface. We are using their chrome driver for this.
 
@@ -18,6 +26,7 @@ Data types supported:
 * Well header
 * Formations
 * Perforations
+* Casing data
 
 
 
