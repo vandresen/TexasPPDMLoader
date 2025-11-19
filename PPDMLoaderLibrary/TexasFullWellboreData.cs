@@ -1,5 +1,6 @@
 ﻿using PPDMLoaderLibrary.Extensions;
 using PPDMLoaderLibrary.Models;
+using System.IO;
 
 namespace PPDMLoaderLibrary
 {
@@ -23,7 +24,7 @@ namespace PPDMLoaderLibrary
             locationWidths = new int[locationPos.Length - 1];
         }
 
-        public List<Wellbore> GetTexasFullWellboreData(InputData input)
+        public async Task<List<Wellbore>> GetTexasFullWellboreData(InputData input)
         {
             List<Wellbore> result = new List<Wellbore>();
             string textFile = input.Path + @"\dbf900.txt";

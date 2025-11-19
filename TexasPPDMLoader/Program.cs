@@ -1,59 +1,48 @@
-﻿using Microsoft.Data.SqlClient;
-using PPDMLoaderLibrary;
-using PPDMLoaderLibrary.Extensions;
-using PPDMLoaderLibrary.Models;
+﻿using PPDMLoaderLibrary.Models;
+using System.CommandLine;
+using TexasPPDMLoader;
 
-Console.Write(@"Enter path (Default = C:\temp): ");
-string path = Console.ReadLine();
-if (string.IsNullOrEmpty(path)) path = @"C:\temp";
-Console.Write("Enter county code (3 characters): ");
-string countyCode = Console.ReadLine();
-Console.Write("Enter sql server connection string (If blank then output to csv): ");
-string connectionString = Console.ReadLine();
-
-InputData input = new InputData()
+var pathOption = new Option<string>("--path") { Description = "Directory to store downloaded files (Default = C:\temp)" };
+var countyOption = new Option<string>("--county")
 {
-    Path = path,
-    CountyCode = countyCode,
-    ConnectionString = connectionString
+    Description = "3-character county code",
+    Required = true
+};
+var connectionOption = new Option<string?>("--connection") { Description = "Optional SQL Server connection string (Default = csv file)" };
+
+var root = new RootCommand("Texas PPDMLoader CLI")
+{
+    pathOption,
+    countyOption,
+    connectionOption
 };
 
-try
+root.SetAction(async parseResult =>
 {
-    DownloadDataFromWeb dl = new DownloadDataFromWeb(path);
-    dl.DownloadWells(countyCode);
-    dl.DownloadApiData(countyCode);
-    dl.DownloadFullWellboreData();
-    if (!string.IsNullOrEmpty(connectionString))
+    InputData input = new()
     {
-        SqlConnection sqlCn = new SqlConnection(connectionString);
-        Console.WriteLine("Connection");
-        sqlCn.Open();
-        Console.WriteLine("Open");
-        sqlCn.Close();
+        Path = parseResult.GetValue(pathOption) ?? @"C:\temp",
+        CountyCode = parseResult.GetValue(countyOption),
+        ConnectionString = parseResult.GetValue(connectionOption) ?? ""
+    };
+
+    if (input.CountyCode.Length != 3)
+    {
+        Console.Error.WriteLine("Error: --county must be exactly 3 characters.");
+        return 1;
     }
-    
-    TexasWellData twd = new TexasWellData();
-    List<Wellbore> wells = await twd.GetTexasWells(input);
 
-    TexasFullWellboreData tpd = new TexasFullWellboreData();
-    List<Wellbore> fullWelbores = tpd.GetTexasFullWellboreData(input);
-    List<Formations> formations = tpd.GetTexasFormationData(input);
-    List<Perforation> perfs = tpd.GetTexasPerforationData(input);
-    List<Casing> casings = tpd.GetTexasCasingData(input);
+    try
+    {
+        return await App.RunLoader(input);
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine("Unhandled error:");
+        Console.Error.WriteLine(ex.ToString());
+        return 3;
+    }
+});
 
-    wells = wells.MergeWellboreObjects(fullWelbores);
-
-    TexasDataStore tds = new TexasDataStore();
-    await tds.Savewells(input, wells);
-    await tds.SaveFormations(input, formations);
-    await tds.SavePerforations(input, perfs);
-    await tds.SaveCasings(input, casings);
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex.ToString());
-}
-
-Console.WriteLine("Loading complete");
-Console.ReadLine();
+ParseResult parseResult = root.Parse(args);
+return parseResult.Invoke();

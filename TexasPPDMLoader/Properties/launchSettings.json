@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TexasPPDMLoader": {
+      "commandName": "Project",
+      "commandLineArgs": "--county \"015\" --connection \"Data Source=VIDARSURFACEPRO;Persist Security Info=False;Initial Catalog =Texas;Integrated Security=True;Encrypt=False;MultipleActiveResultSets=True;Connection Timeout=120\""
+    }
+  }
+}
